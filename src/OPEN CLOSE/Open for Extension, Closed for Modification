@@ -1,0 +1,28 @@
+Simply::
+    Class Shoud be open for extension but closed for modification. in doing so we stop ourselves from modifying
+    existing code and causing potential new bugs in an otherwise happy application.
+
+    Example::
+    public class Guitar{
+        private String make;
+        private String model;
+        private int volume;
+
+        //Constructor, getters & setters
+
+
+    }
+
+    we launch the application, and everyone loves it, but after a few month, we decide the Guitar is a little boring
+    and Could use a cool flame pattern to make it look more rock and roll.
+    at this point it, might be tempting to just open up the Guitar class and add a flame pattern- but who knows what
+    errors that might throw up in our application, instead let's stick to the open-closed principle and simply extend
+    our guitar class::
+
+    public class SuperCoolGuitarWithFlames extend Guitar{
+        private String flameColor;
+
+        //constructors getters and setters
+    }
+
+    By extending the guitar class we can be sure that our existing application won't be affected.

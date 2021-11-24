@@ -1,0 +1,51 @@
+it Simply means that larger interface should be split into smaller ones.
+By doing so, we can unsure that implementing classes only need to be concerned about the methods
+that are of intereset to them
+
+    for this example, we are going to try our hands as zookeepers. And more specifically, we will be working in the bear enclosure.
+    Lets start with an interface that outlines our roles as a bear keeper:
+
+        public interface BearKeeper {
+
+            void washTheBear();
+            void feedTheBear();
+            void petTheBear();
+
+        }
+
+        as avid zookepers, we are more than happy to wash and feed our beloved bears, but we are all to aware of the
+        dangers of petting them, unfortunately, our interface is rather large, and we have no choice but implement the code to pet the bear.
+        lets fix this by splitting our large interface into three separate ones:
+            public interface BearCleaner {
+                void washTheBear();
+            }
+
+            public interface BearFeeder {
+                void feedTheBear();
+            }
+
+            public interface BearPetter {
+                void petTheBear();
+            }
+
+            now thanks to interface segregation, we are free to implement only the methods that matter to us:
+            public class BearCarer implements BearCleaner, BearFeeder {
+
+                public void washTheBear() {
+                    //I think we missed a spot...
+                }
+
+                public void feedTheBear() {
+                    //Tuna Tuesdays...
+                }
+            }
+
+            and finally, we can leave the dangerous stuff to the reckless people:
+            public class CrazyPerson implements BearPetter {
+
+                public void petTheBear() {
+                    //Good luck with that!
+                }
+            }
+            going further, we could even split our BookPrinter class from our example earlier to use interface segregation in the same way
+            by implementing a printerInterface with a single print method, we could instantiate separate ConsoleBookPrinter and otherMediaBookPrinter classes

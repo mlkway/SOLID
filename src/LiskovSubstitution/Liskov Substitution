@@ -1,0 +1,45 @@
+If a class A is a subType of class B, we shoud be able to replace B with A without disrupting
+the behavior of our program.
+
+    public interface Car {
+        void turnOnEngine();
+        void accelerate();
+
+    }
+
+    Above, we define a simple Car interface with a couple of methods that all cars should be able to fulfil:
+        turning on the engine and accelerating forward.
+
+        Lets implement our interface and provide some code for the methods:
+
+        public class MotorCar implements Car{
+            private Engine engine;
+
+            // Constructors, getters + setters
+
+            public void turnOnEngine(){
+                engine.on()
+            }
+
+            public void accelerate(){
+                engine.powerOn(1000);
+            }
+        }
+
+        // As our code describes, we have an engine that we can turn on, and we can increase the power.
+        but wait - we are now living in the era of electric cars:
+
+            Public class ElectricCar implements Car {
+                public void turnOnEngine(){
+                    throw new AssertionError("I do not have an engine")
+                }
+                public void accelerate(){
+                    this acceleration is craze!
+                }
+
+            }
+            By throwing a car without an engine into the mix, we are inherenlty changing the behavior of our program.
+            this is a blatant violation of liskov substitution and is a bit harder to fix than our previous two principles.
+            One possible solution would be to rework our model into interfaces that take into account the engine-less state of our car.
+             
+

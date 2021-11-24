@@ -1,0 +1,44 @@
+The principle of dependency inversion refers to the decoupling of software modules.
+This way, instead of high-level modules depending on low-level modules, both will depend on abstractions.
+
+    To demonstrate this, let's go old-school and bring to life a Windows 98 Computer with code:
+
+        public class Windws98Machine{}
+
+        But what good is a computer without monitor and keybord? lets add one of each to our constructor so that
+        every windodws98Computer we instantiate comes prepacked with a monitor and a StandardKeyboard:
+
+        public class Windows98Machine{
+            private final StandardKeyboard keyborad;
+            private final Monitor monitor;
+
+            public Windows98Machine(){
+                monitor = new Monitor();
+                keyBorad = new StandartKeyborad();
+            }
+        }
+
+        this code will work, and we will be able to use the StandardKeyborad and monitor Freely within our Windows98Computer Class.
+        Problem Solved ? Not Quite. By declaring The StandartKeyborad and monitor with the new KeyWorad, we have tightly coupled these three classes
+        together.
+
+        Not only does this make our windows98Computer hard to test. but we have also lost the ability to switch out our StandartKeyborad class with
+        a different one should the need arise. And we are stuck with our monitor class to
+        lets decouple our machine from the standardKeyborad by adding a more general keyborad interface and using this in our class:
+
+        public interface Keyborad{}
+
+        public class Windows98Machine{
+            private final KeyBoard keyboard;
+            private final Monitor monitor;
+
+            public Windows98Machine(Keyborad keyboard, Monitor monitor){
+                this.keyboard = keyborad;
+                this.monitor = monitor;
+            }
+        }
+        // here we using the dependency injection patter to facilitate adding the keyborad dependency into the windowsMachine class:
+        public class StandartKeyborad implements KeyBorad {}
+        now our classes decoupled and communicate through the keyborad abstraction, if we want. we can easily
+        swith out the type of keyborad in our machine with a different implementation of the interface, we can follow the same principle for the monitor class.
+        Excellent we have decoupled the dependencies and are free to test our windows98Machine with whichever testing framework we choose
